@@ -342,33 +342,52 @@ body{padding-bottom:0!important}
 @media(max-width:650px){.deleteCard{grid-column:2;justify-self:start}}
 </style>
 <style>
-/* iPhone modal scrolling fix — CSS only */
-.overlay{
-  overflow-y:auto!important;
+/* Dedicated iPhone Add Card scroll sheet */
+#addModal{
+  position:fixed!important;
+  inset:0!important;
+  padding:12px!important;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+}
+#addModal.show{display:flex!important}
+#addModal .modal{
+  width:min(100%,520px)!important;
+  height:min(88dvh,760px)!important;
+  max-height:88dvh!important;
+  margin:0!important;
+  padding-bottom:max(24px,env(safe-area-inset-bottom))!important;
+  overflow-y:scroll!important;
   overflow-x:hidden!important;
   -webkit-overflow-scrolling:touch!important;
-  overscroll-behavior:contain;
-  align-items:flex-start!important;
-  padding-top:max(18px,env(safe-area-inset-top))!important;
-  padding-bottom:max(34px,env(safe-area-inset-bottom))!important;
+  overscroll-behavior-y:contain!important;
   touch-action:pan-y!important;
+  position:relative!important;
 }
-.overlay.show{overflow-y:auto!important}
-.overlay .modal{
-  flex:0 0 auto!important;
-  max-height:none!important;
-  height:auto!important;
-  margin:auto!important;
-  touch-action:pan-y!important;
-}
-#addModal .modal{
-  margin-top:0!important;
-  margin-bottom:24px!important;
+#addModal .mh{
+  position:sticky!important;
+  top:0!important;
+  z-index:30!important;
+  background:#101b22!important;
+  padding-top:4px!important;
 }
 #addModal input,
-#addModal button,
-#addModal label{
-  touch-action:manipulation;
+#addModal select,
+#addModal textarea{
+  touch-action:auto!important;
+}
+#addModal label,
+#addModal .photoChoice,
+#addModal .photoChoice label{
+  touch-action:pan-y!important;
+}
+#addModal #saveCard{
+  margin-bottom:24px!important;
+}
+@supports not (height: 100dvh){
+ #addModal .modal{height:88vh!important;max-height:88vh!important}
 }
 </style>
 </head>
