@@ -431,7 +431,7 @@ function render(){
 }
 function open(photoIn){photo=photoIn||"";$("name").value="";$("paid").value="";$("grade").value="";$("estimate").value="";$("preview").style.display=photo?"block":"none";if(photo)$("preview").src=photo;$("addModal").classList.add("show")}
 function imageFile(f,cb){if(!f)return;var r=new FileReader();r.onload=function(e){var im=new Image();im.onload=function(){var m=650,s=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);cb(c.toDataURL("image/jpeg",.58))};im.src=e.target.result};r.readAsDataURL(f)}
-function picker(input){if(!input.files||!input.files[0])return;imageFile(input.files[0],function(x){$("sourceModal").classList.remove("show");open(x);input.value=""})})}
+function picker(input){if(!input.files||!input.files[0])return;imageFile(input.files[0],function(x){$("sourceModal").classList.remove("show");open(x);input.value=""})}
 $("addCardLauncher").onclick=function(){$("sourceModal").classList.add("show")};
 $("closeSource").onclick=function(){$("sourceModal").classList.remove("show")};
 $("quickCamera").onchange=function(){picker(this)};$("quickLibrary").onchange=function(){picker(this)};
