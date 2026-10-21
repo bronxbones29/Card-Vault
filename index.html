@@ -428,6 +428,26 @@ body{padding-bottom:0!important}
   text-shadow:0 0 12px rgba(255,77,87,.22)!important;
 }
 </style>
+
+<style>
+.resetAction{
+ margin-top:16px!important;
+ border-color:#8d3037!important;
+ background:linear-gradient(180deg,#35171b,#241014)!important;
+ color:#ffb8bd!important;
+}
+.resetAction .backupActionIcon{
+ background:#9e2932!important;
+ color:white!important;
+}
+.resetAction b{color:#ff626c!important}
+.resetNote{
+ margin-top:7px;
+ text-align:center;
+ font-size:10px;
+ color:#aab3b8;
+}
+</style>
 </head>
 <body>
 <div id="toast" class="toast">✓ Added to Bono’s CardLocker</div>
@@ -475,6 +495,10 @@ body{padding-bottom:0!important}
   </button>
   <input id="importFile" type="file" accept=".json,application/json" style="display:none">
   <div class="backupNote">Import replaces the collection currently stored on this device.</div>
+  <button id="resetData" class="backupAction resetAction" type="button">
+   <span class="backupActionIcon">×</span><span><b>Reset All Data</b><small>Delete all cards, sales and collection totals</small></span>
+  </button>
+  <div class="resetNote">Export a backup first if you may want this data later.</div>
  </div>
 </div></div>
 <div id="sourceModal" class="overlay"><div class="modal sourceModalCard">
@@ -569,6 +593,15 @@ $("exportBackup").onclick=function(){
 };
 
 $("importBackup").onclick=function(){$("importFile").click()};
+$("resetData").onclick=function(){
+ if(!confirm("Reset ALL Bono’s CardLocker data? This will permanently delete every card, sale and total stored on this device."))return;
+ localStorage.removeItem(KEY);
+ render();
+ $("backupModal").classList.remove("show");
+ $("toast").textContent="✓ CardLocker reset";
+ $("toast").classList.add("show");
+ setTimeout(function(){$("toast").classList.remove("show");$("toast").textContent="✓ Added to Bono’s CardLocker"},1800);
+};
 $("importFile").onchange=function(){
  var f=this.files&&this.files[0];
  if(!f)return;
