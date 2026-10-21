@@ -340,7 +340,38 @@ body{padding-bottom:0!important}
 </style><style>
 .deleteCard{grid-column:3;border:1px solid #56636b;background:#17242d;color:#eef2f4;font-weight:900;font-size:10px;border-radius:6px;padding:8px 9px;margin-top:5px}
 @media(max-width:650px){.deleteCard{grid-column:2;justify-self:start}}
-</style></head>
+</style>
+<style>
+/* iPhone modal scrolling fix — CSS only */
+.overlay{
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  -webkit-overflow-scrolling:touch!important;
+  overscroll-behavior:contain;
+  align-items:flex-start!important;
+  padding-top:max(18px,env(safe-area-inset-top))!important;
+  padding-bottom:max(34px,env(safe-area-inset-bottom))!important;
+  touch-action:pan-y!important;
+}
+.overlay.show{overflow-y:auto!important}
+.overlay .modal{
+  flex:0 0 auto!important;
+  max-height:none!important;
+  height:auto!important;
+  margin:auto!important;
+  touch-action:pan-y!important;
+}
+#addModal .modal{
+  margin-top:0!important;
+  margin-bottom:24px!important;
+}
+#addModal input,
+#addModal button,
+#addModal label{
+  touch-action:manipulation;
+}
+</style>
+</head>
 <body>
 <div id="toast" class="toast">✓ Added to Bono’s CardLocker</div>
 <div class="app">
