@@ -326,7 +326,14 @@ body{padding-bottom:0!important}
  .backupBtn{padding:7px 8px}
 }
 </style>
-</head>
+<style>
+.nativeSource{position:relative!important;overflow:hidden!important;cursor:pointer!important}
+.nativeSource input[type="file"]{
+ position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+ opacity:0!important;display:block!important;z-index:50!important;cursor:pointer!important;
+ font-size:0!important;color:transparent!important;-webkit-appearance:none!important;appearance:none!important
+}
+</style></head>
 <body>
 <div id="toast" class="toast">✓ Added to Bono’s CardLocker</div>
 <div class="app">
@@ -348,8 +355,6 @@ body{padding-bottom:0!important}
    <span class="chev">›</span>
  </button>
 </div>
-<input id="quickCamera" class="hiddenPicker" type="file" accept="image/*" capture="environment">
-<input id="quickLibrary" class="hiddenPicker" type="file" accept="image/*">
 <input id="search" class="search" placeholder="Search cards (player, grade...)">
 <div class="sectionHead collectionHead">
  <h2>My Collection</h2>
@@ -378,16 +383,18 @@ body{padding-bottom:0!important}
  </div>
 </div></div>
 <div id="sourceModal" class="overlay"><div class="modal sourceModalCard">
- <div class="mh"><h2>Add Card</h2><button id="closeSource" class="x">×</button></div>
+ <div class="mh"><h2>Add Card</h2><button id="closeSource" class="x" type="button">×</button></div>
  <div class="sourceChoices">
-  <button id="chooseCamera" class="sourceChoice" type="button">
+  <label class="sourceChoice nativeSource">
    <span class="sourceIcon"><svg viewBox="0 0 40 40"><path d="M8 13h6l2-4h8l2 4h6v19H8z"/><circle cx="20" cy="22" r="6"/></svg></span>
-   <span><b>Take Photo</b><small>Use your camera</small></span><em>›</em>
-  </button>
-  <button id="chooseLibrary" class="sourceChoice" type="button">
+   <span><b>Take Photo</b><small>Use your iPhone camera</small></span><em>›</em>
+   <input id="quickCamera" type="file" accept="image/*" capture="environment">
+  </label>
+  <label class="sourceChoice nativeSource">
    <span class="sourceIcon"><svg viewBox="0 0 40 40"><rect x="7" y="8" width="26" height="24" rx="3"/><circle cx="15" cy="15" r="3"/><path d="M10 28l7-8 5 5 4-4 5 7"/></svg></span>
    <span><b>Choose from Library</b><small>Select an existing photo</small></span><em>›</em>
-  </button>
+   <input id="quickLibrary" type="file" accept="image/*">
+  </label>
  </div>
 </div></div>
 <div id="addModal" class="overlay"><div class="modal"><div class="mh"><h2>Add Card</h2><button id="closeAdd" class="x">×</button></div><div class="form">
@@ -424,11 +431,9 @@ function render(){
 }
 function open(photoIn){photo=photoIn||"";$("name").value="";$("paid").value="";$("grade").value="";$("estimate").value="";$("preview").style.display=photo?"block":"none";if(photo)$("preview").src=photo;$("addModal").classList.add("show")}
 function imageFile(f,cb){if(!f)return;var r=new FileReader();r.onload=function(e){var im=new Image();im.onload=function(){var m=650,s=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);cb(c.toDataURL("image/jpeg",.58))};im.src=e.target.result};r.readAsDataURL(f)}
-function picker(input){imageFile(input.files[0],function(x){open(x)})}
+function picker(input){if(!input.files||!input.files[0])return;imageFile(input.files[0],function(x){$("sourceModal").classList.remove("show");open(x);input.value=""})})}
 $("addCardLauncher").onclick=function(){$("sourceModal").classList.add("show")};
 $("closeSource").onclick=function(){$("sourceModal").classList.remove("show")};
-$("chooseCamera").onclick=function(){$("sourceModal").classList.remove("show");$("quickCamera").click()};
-$("chooseLibrary").onclick=function(){$("sourceModal").classList.remove("show");$("quickLibrary").click()};
 $("quickCamera").onchange=function(){picker(this)};$("quickLibrary").onchange=function(){picker(this)};
 $("camera").onchange=function(){imageFile(this.files[0],function(x){photo=x;$("preview").src=x;$("preview").style.display="block"})};$("library").onchange=function(){imageFile(this.files[0],function(x){photo=x;$("preview").src=x;$("preview").style.display="block"})};
 $("closeAdd").onclick=function(){$("addModal").classList.remove("show")};
