@@ -333,6 +333,10 @@ body{padding-bottom:0!important}
  opacity:0!important;display:block!important;z-index:50!important;cursor:pointer!important;
  font-size:0!important;color:transparent!important;-webkit-appearance:none!important;appearance:none!important
 }
+</style><style>
+.overlay{visibility:hidden;pointer-events:none}
+.overlay.show{display:flex!important;visibility:visible!important;pointer-events:auto!important}
+#addCardLauncher{position:relative!important;z-index:2!important;pointer-events:auto!important}
 </style></head>
 <body>
 <div id="toast" class="toast">✓ Added to Bono’s CardLocker</div>
@@ -408,7 +412,7 @@ body{padding-bottom:0!important}
 
 <div id="sellModal" class="overlay"><div class="modal"><div class="mh"><h2>Sell Card</h2><button id="closeSell" class="x">×</button></div><div class="form"><div id="sellName" style="font-weight:900;margin-bottom:14px"></div><div class="field"><label>SELL PRICE</label><input id="sellPrice" type="number" inputmode="decimal" step=".01"></div><button id="confirmSell" class="save" type="button">CONFIRM SALE</button></div></div></div>
 
-<script>
+<script>document.addEventListener("DOMContentLoaded",function(){
 (function(){
 "use strict";
 var KEY="bonosCardLocker1", photo="", selling=null;
@@ -432,7 +436,7 @@ function render(){
 function open(photoIn){photo=photoIn||"";$("name").value="";$("paid").value="";$("grade").value="";$("estimate").value="";$("preview").style.display=photo?"block":"none";if(photo)$("preview").src=photo;$("addModal").classList.add("show")}
 function imageFile(f,cb){if(!f)return;var r=new FileReader();r.onload=function(e){var im=new Image();im.onload=function(){var m=650,s=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);cb(c.toDataURL("image/jpeg",.58))};im.src=e.target.result};r.readAsDataURL(f)}
 function picker(input){if(!input.files||!input.files[0])return;imageFile(input.files[0],function(x){$("sourceModal").classList.remove("show");open(x);input.value=""})}
-$("addCardLauncher").onclick=function(){$("sourceModal").classList.add("show")};
+var addLauncher=$("addCardLauncher");if(addLauncher){addLauncher.addEventListener("click",function(e){e.preventDefault();$("sourceModal").classList.add("show")})};
 $("closeSource").onclick=function(){$("sourceModal").classList.remove("show")};
 $("quickCamera").onchange=function(){picker(this)};$("quickLibrary").onchange=function(){picker(this)};
 $("camera").onchange=function(){imageFile(this.files[0],function(x){photo=x;$("preview").src=x;$("preview").style.display="block"})};$("library").onchange=function(){imageFile(this.files[0],function(x){photo=x;$("preview").src=x;$("preview").style.display="block"})};
@@ -491,5 +495,5 @@ $("importFile").onchange=function(){
 };
 $("search").oninput=render;render();
 })();
-</script>
+});</script>
 </body></html>
