@@ -390,6 +390,44 @@ body{padding-bottom:0!important}
  #addModal .modal{height:88vh!important;max-height:88vh!important}
 }
 </style>
+
+<style>
+/* More prominent live stats */
+.stats{
+  min-height:82px!important;
+  border-top:1px solid rgba(255,255,255,.12)!important;
+  border-bottom:1px solid rgba(255,255,255,.12)!important;
+  box-shadow:0 8px 22px rgba(0,0,0,.28)!important;
+}
+.stat{
+  padding:11px 3px 10px!important;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.012))!important;
+  border-right:1px solid rgba(255,255,255,.09)!important;
+}
+.stat:last-child{border-right:0!important}
+.stat svg{
+  width:22px!important;
+  height:22px!important;
+  margin-bottom:3px!important;
+}
+.stat strong{
+  font-size:16px!important;
+  line-height:1.05!important;
+  font-weight:950!important;
+  letter-spacing:-.35px!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.4)!important;
+}
+.stat small{
+  font-size:8px!important;
+  font-weight:900!important;
+  letter-spacing:.75px!important;
+  opacity:.9!important;
+}
+#profit.negativeProfit{
+  color:#ff4d57!important;
+  text-shadow:0 0 12px rgba(255,77,87,.22)!important;
+}
+</style>
 </head>
 <body>
 <div id="toast" class="toast">✓ Added to Bono’s CardLocker</div>
@@ -481,7 +519,7 @@ function render(){
  $("invested").textContent=money(owned.reduce(function(n,c){return n+Number(c.paid||0)},0));
  $("value").textContent=money(owned.reduce(function(n,c){return n+Number(c.value||0)},0));
  $("sales").textContent=money(sold.reduce(function(n,c){return n+Number(c.sellPrice||0)},0));
- $("profit").textContent=money(sold.reduce(function(n,c){return n+Number(c.sellPrice||0)-Number(c.paid||0)},0));
+ var profitTotal=sold.reduce(function(n,c){return n+Number(c.sellPrice||0)-Number(c.paid||0)},0);$("profit").textContent=money(profitTotal);$("profit").classList.toggle("negativeProfit",profitTotal<0);
  if(!show.length){$("grid").innerHTML='<div class="empty"><b>Your CardLocker is ready.</b>Add your first card using Take Photo or Add from Library.</div>';return}
  $("grid").innerHTML=show.slice().reverse().map(function(c){return '<article class="card"><div class="cardPhoto">'+(c.photo?'<img src="'+c.photo+'">':'NO PHOTO')+'</div><div><h3>'+safe(c.name)+'</h3><div class="meta">Personal collection</div>'+(c.grade?'<span class="grade">'+safe(c.grade)+'</span>':'')+'</div><div class="values"><div><b>'+money(c.paid)+'</b><small>Paid</small></div><div class="est"><b>'+money(c.value)+'</b><small>Est. Value</small></div></div><button class="sell" data-id="'+c.id+'">SELL CARD</button><button class="deleteCard" data-id="'+c.id+'" type="button">DELETE CARD</button></article>'}).join("");
  Array.prototype.forEach.call(document.querySelectorAll(".sell"),function(b){b.onclick=function(){selling=String(this.dataset.id);var c=get().find(function(x){return String(x.id)===selling});if(c){$("sellName").textContent=c.name;$("sellModal").classList.add("show")}}});
