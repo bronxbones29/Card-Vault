@@ -453,6 +453,35 @@ body{padding-bottom:0!important}
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#07131b">
+
+<style>
+/* Deal Finder */
+.dealFinder{margin:18px 22px 28px;border:1px solid #344957;border-radius:16px;background:linear-gradient(145deg,#0e1c25,#09131a);overflow:hidden;box-shadow:0 10px 28px #0006}
+.dealHero{padding:18px;display:flex;gap:13px;align-items:center;background:linear-gradient(135deg,#172b38,#0b1821)}
+.dealIcon{width:52px;height:52px;border-radius:13px;display:grid;place-items:center;background:#8a431f;color:#ffd082;font-size:28px}.dealHero h2{margin:0;font-size:21px}.dealHero p{margin:4px 0 0;color:#aeb9c1;font-size:12px;line-height:1.4}
+.dealForm{padding:15px;display:grid;grid-template-columns:1fr 120px;gap:9px}.dealForm input,.dealForm select{min-height:46px;border:1px solid #3a5060;border-radius:9px;background:#fff;color:#071018;padding:9px;font-weight:700}.dealSearchBtn{grid-column:1/-1;min-height:48px;border:0;border-radius:9px;background:linear-gradient(#d76b27,#a74418);color:#fff;font-weight:950}.dealNote{padding:0 15px 15px;color:#8f9da7;font-size:10px;line-height:1.45}.dealResults{padding:0 15px 15px}.dealEmpty{border:1px dashed #3b4d59;border-radius:10px;padding:20px;text-align:center;color:#a7b2ba;font-size:12px}.dealCard{padding:13px;border:1px solid #304451;border-radius:11px;background:#0d1921;margin-top:10px}.dealTop{display:flex;justify-content:space-between;gap:10px}.dealTop b{font-size:14px}.score{flex:0 0 auto;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:950;background:#173725;color:#42e47b}.dealNums{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:11px}.dealNum{background:#13232d;border-radius:7px;padding:8px}.dealNum strong{display:block;font-size:13px}.dealNum small{font-size:8px;color:#96a4ae;text-transform:uppercase}.dealLinks{display:flex;gap:7px;margin-top:10px}.dealLinks a{flex:1;text-decoration:none;text-align:center;padding:9px;border-radius:7px;font-size:10px;font-weight:900;color:#fff;background:#1d5277}.dealLinks .comp{background:#633b1e}.dealBadge{display:inline-block;margin-top:7px;font-size:9px;font-weight:950;color:#ffd17f}.finderSettings{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:0 15px 14px}.finderSettings label{font-size:8px;color:#9daab3;font-weight:900}.finderSettings input{width:100%;margin-top:4px;padding:8px 6px;border-radius:7px;border:1px solid #3a5060}.dealStatus{padding:0 15px 12px;color:#e4b667;font-size:10px;font-weight:800}
+@media(max-width:650px){.dealFinder{margin:18px 22px 30px}.dealForm{grid-template-columns:1fr 95px}.dealNums{grid-template-columns:1fr 1fr}}
+</style>
+
+<style>
+/* PROMINENT STATS — compact enough for iPhone */
+.statsBar{min-height:94px!important;background:linear-gradient(180deg,#172833 0%,#0b171f 100%)!important;border-top:2px solid rgba(230,173,83,.55)!important;border-bottom:2px solid rgba(230,173,83,.32)!important;box-shadow:0 10px 28px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.08)!important}
+.statsBar .stat{height:94px!important;padding:8px 7px!important;border-right:1px solid rgba(255,255,255,.13)!important;background:linear-gradient(180deg,rgba(255,255,255,.065),rgba(255,255,255,.01))!important}
+.statsBar .statIcon{width:34px!important;height:34px!important;min-width:34px!important;background:#1c303d!important;box-shadow:inset 0 0 0 1px rgba(230,173,83,.2)!important}
+.statsBar .statIcon svg{width:20px!important;height:20px!important}
+.statsBar .statCopy{height:auto!important;grid-template-rows:auto auto!important;align-content:center!important}
+.statsBar .statCopy b{height:auto!important;line-height:1.05!important;font-size:clamp(15px,2.4vw,22px)!important;font-weight:950!important;letter-spacing:-.45px!important;overflow:visible!important}
+.statsBar .statCopy span{height:auto!important;line-height:1.05!important;font-size:8px!important;font-weight:950!important;letter-spacing:.45px!important;color:#c8d1d7!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important}
+@media(max-width:650px){
+ .statsBar{min-height:92px!important}
+ .statsBar .stat{height:92px!important;padding:7px 2px!important;grid-template-columns:1fr!important;grid-template-rows:31px auto!important;gap:3px!important}
+ .statsBar .statIcon{width:29px!important;height:29px!important;min-width:29px!important}
+ .statsBar .statIcon svg{width:18px!important;height:18px!important}
+ .statsBar .statCopy{width:100%!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:3px!important}
+ .statsBar .statCopy b{width:100%!important;font-size:clamp(13px,3.4vw,17px)!important;line-height:1!important;text-align:center!important}
+ .statsBar .statCopy span{width:100%!important;max-width:70px!important;font-size:6.5px!important;line-height:1.05!important;letter-spacing:.15px!important;text-align:center!important;white-space:normal!important;overflow-wrap:normal!important}
+}
+</style>
 </head>
 <body>
 <div id="toast" class="toast">✓ Added to Bono’s CardLocker</div>
@@ -461,8 +490,8 @@ body{padding-bottom:0!important}
 <div class="content">
 <div class="stats statsBar">
  <div class="stat"><div class="statIcon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="5" width="16" height="22" rx="2"/><path d="M11 9h10M11 13h10M11 17h7"/></svg></div><div class="statCopy"><b id="owned">0</b><span>Cards</span></div></div>
- <div class="stat"><div class="statIcon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 12l5-6h10l5 6-10 14z"/><path d="M6 12h20M11 6l5 6 5-6M16 12v14"/></svg></div><div class="statCopy"><b id="value">$0.00</b><span>Value</span></div></div>
- <div class="stat"><div class="statIcon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="8" width="24" height="17" rx="3"/><path d="M4 13h24M9 20h5"/><circle cx="22" cy="19" r="2.5"/></svg></div><div class="statCopy"><b id="invested">$0.00</b><span>Spent</span></div></div>
+ <div class="stat"><div class="statIcon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 12l5-6h10l5 6-10 14z"/><path d="M6 12h20M11 6l5 6 5-6M16 12v14"/></svg></div><div class="statCopy"><b id="spent">$0.00</b><span>Total Spent</span></div></div>
+ <div class="stat"><div class="statIcon"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="8" width="24" height="17" rx="3"/><path d="M4 13h24M9 20h5"/><circle cx="22" cy="19" r="2.5"/></svg></div><div class="statCopy"><b id="invested">$0.00</b><span>Currently Invested</span></div></div>
  <div class="stat"><div class="statIcon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 8h14l8 8-11 11L5 16z"/><circle cx="11" cy="13" r="2"/><path d="M17 12v10M20 14.5c-.8-1-1.8-1.5-3-1.5-1.7 0-3 1-3 2.3 0 3.5 6 1.4 6 4.5 0 1.3-1.3 2.2-3 2.2-1.3 0-2.5-.5-3.3-1.5"/></svg></div><div class="statCopy"><b id="sales">$0.00</b><span>Sales</span></div></div>
  <div class="stat profitStat"><div class="statIcon"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 25V8M6 25h21"/><path d="M9 21l6-6 4 3 8-10"/><path d="M21 8h6v6"/></svg></div><div class="statCopy"><b id="profit">$0.00</b><span>Profit</span></div></div>
 </div>
@@ -475,6 +504,15 @@ body{padding-bottom:0!important}
    <span class="chev">›</span>
  </button>
 </div>
+
+<section class="dealFinder" id="dealFinder">
+ <div class="dealHero"><div class="dealIcon">⌕</div><div><h2>Deal Scanner</h2><p>One tap hunts eBay for baseball-card flip opportunities using your preset buy, profit and ROI targets.</p></div></div>
+ <div style="padding:15px"><button id="dealScan" class="dealSearchBtn" type="button" style="width:100%;min-height:64px;font-size:17px">🔍 SCAN FOR DEALS</button></div>
+ <div class="finderSettings"><label>MAX BUY USD<input id="maxBuy" type="number" value="220"></label><label>MIN ROI %<input id="minRoi" type="number" value="25"></label><label>MIN PROFIT $<input id="minProfit" type="number" value="15"></label></div>
+ <div id="dealStatus" class="dealStatus">Agent ready • Baseball • live eBay listings • active-market comp estimates.</div>
+ <div id="dealResults" class="dealResults"><div class="dealEmpty">Tap <b>SCAN FOR DEALS</b>. The agent will fetch live listings, build comparable active-market sets, estimate resale economics, and surface candidates that clear your thresholds.</div></div>
+ <div class="dealNote">Market value is an automated estimate from comparable <b>active</b> eBay inventory, not a verified sold-price comp. Treat Deal Score as a screening tool and review the listing before buying.</div>
+</section>
 <input id="search" class="search" placeholder="Search cards (player, grade...)">
 <div class="sectionHead collectionHead">
  <h2>My Collection</h2>
@@ -493,7 +531,7 @@ body{padding-bottom:0!important}
  <div class="backupBody">
   <p>Keep a copy of your CardLocker data so you can restore it later or move it to another device.</p>
   <button id="exportBackup" class="backupAction" type="button">
-   <span class="backupActionIcon">↓</span><span><b>Export Backup</b><small>Save cards, values, sales and photos</small></span>
+   <span class="backupActionIcon">↓</span><span><b>Export Backup</b><small>Save cards, prices, sales and photos</small></span>
   </button>
   <button id="importBackup" class="backupAction" type="button">
    <span class="backupActionIcon">↑</span><span><b>Import Backup</b><small>Restore a CardLocker backup file</small></span>
@@ -526,7 +564,7 @@ body{padding-bottom:0!important}
  <div class="field"><label>CARD / PLAYER NAME</label><input id="name" placeholder="e.g. Aaron Judge"></div>
  <div class="field"><label>PRICE PAID</label><input id="paid" type="number" inputmode="decimal" step=".01" placeholder="0.00"></div>
  <div class="field"><label>PSA GRADE (OPTIONAL)</label><select id="grade"><option value="">Not graded</option><option>PSA 1</option><option>PSA 2</option><option>PSA 3</option><option>PSA 4</option><option>PSA 5</option><option>PSA 6</option><option>PSA 7</option><option>PSA 8</option><option>PSA 9</option><option>PSA 10</option></select></div>
- <div class="field"><label>ESTIMATED VALUE</label><input id="estimate" type="number" inputmode="decimal" step=".01" placeholder="0.00"></div>
+ 
  <button id="saveCard" class="save" type="button">ADD TO CARDLOCKER</button>
 </div></div></div>
 
@@ -546,11 +584,11 @@ function render(){
  var show=owned.filter(function(c){return (c.name+" "+c.grade).toLowerCase().indexOf(q)>-1});
  $("owned").textContent=owned.length;$("countLabel").textContent=owned.length+" card"+(owned.length===1?"":"s");
  $("invested").textContent=money(owned.reduce(function(n,c){return n+Number(c.paid||0)},0));
- $("value").textContent=money(owned.reduce(function(n,c){return n+Number(c.value||0)},0));
+ $("spent").textContent=money(a.reduce(function(n,c){return n+Number(c.paid||0)},0));
  $("sales").textContent=money(sold.reduce(function(n,c){return n+Number(c.sellPrice||0)},0));
  var profitTotal=sold.reduce(function(n,c){return n+Number(c.sellPrice||0)-Number(c.paid||0)},0);$("profit").textContent=money(profitTotal);$("profit").classList.toggle("negativeProfit",profitTotal<0);
  if(!show.length){$("grid").innerHTML='<div class="empty"><b>Your CardLocker is ready.</b>Add your first card using Take Photo or Add from Library.</div>';return}
- $("grid").innerHTML=show.slice().reverse().map(function(c){return '<article class="card"><div class="cardPhoto">'+(c.photo?'<img src="'+c.photo+'">':'NO PHOTO')+'</div><div><h3>'+safe(c.name)+'</h3><div class="meta">Personal collection</div>'+(c.grade?'<span class="grade">'+safe(c.grade)+'</span>':'')+'</div><div class="values"><div><b>'+money(c.paid)+'</b><small>Paid</small></div><div class="est"><b>'+money(c.value)+'</b><small>Est. Value</small></div></div><button class="sell" data-id="'+c.id+'">SELL CARD</button><button class="deleteCard" data-id="'+c.id+'" type="button">DELETE CARD</button></article>'}).join("");
+ $("grid").innerHTML=show.slice().reverse().map(function(c){return '<article class="card"><div class="cardPhoto">'+(c.photo?'<img src="'+c.photo+'">':'NO PHOTO')+'</div><div><h3>'+safe(c.name)+'</h3><div class="meta">Personal collection</div>'+(c.grade?'<span class="grade">'+safe(c.grade)+'</span>':'')+'</div><div class="values"><div><b>'+money(c.paid)+'</b><small>Paid</small></div></div><button class="sell" data-id="'+c.id+'">SELL CARD</button><button class="deleteCard" data-id="'+c.id+'" type="button">DELETE CARD</button></article>'}).join("");
  Array.prototype.forEach.call(document.querySelectorAll(".sell"),function(b){b.onclick=function(){selling=String(this.dataset.id);var c=get().find(function(x){return String(x.id)===selling});if(c){$("sellName").textContent=c.name;$("sellModal").classList.add("show")}}});
 Array.prototype.forEach.call(document.querySelectorAll(".deleteCard"),function(b){
  b.onclick=function(){
@@ -564,7 +602,7 @@ Array.prototype.forEach.call(document.querySelectorAll(".deleteCard"),function(b
  };
 });
 }
-function open(photoIn){photo=photoIn||"";$("name").value="";$("paid").value="";$("grade").value="";$("estimate").value="";$("preview").style.display=photo?"block":"none";if(photo)$("preview").src=photo;$("addModal").classList.add("show")}
+function open(photoIn){photo=photoIn||"";$("name").value="";$("paid").value="";$("grade").value="";$("preview").style.display=photo?"block":"none";if(photo)$("preview").src=photo;$("addModal").classList.add("show")}
 function imageFile(f,cb){if(!f)return;var r=new FileReader();r.onload=function(e){var im=new Image();im.onload=function(){var m=650,s=Math.min(1,m/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);c.getContext("2d").drawImage(im,0,0,c.width,c.height);cb(c.toDataURL("image/jpeg",.58))};im.src=e.target.result};r.readAsDataURL(f)}
 function picker(input){if(!input.files||!input.files[0])return;imageFile(input.files[0],function(x){$("sourceModal").classList.remove("show");open(x);input.value=""})}
 var addLauncher=$("addCardLauncher");if(addLauncher){addLauncher.addEventListener("click",function(e){e.preventDefault();$("sourceModal").classList.add("show")})};
@@ -572,7 +610,7 @@ $("closeSource").onclick=function(){$("sourceModal").classList.remove("show")};
 $("quickCamera").onchange=function(){picker(this)};$("quickLibrary").onchange=function(){picker(this)};
 $("camera").onchange=function(){imageFile(this.files[0],function(x){photo=x;$("preview").src=x;$("preview").style.display="block"})};$("library").onchange=function(){imageFile(this.files[0],function(x){photo=x;$("preview").src=x;$("preview").style.display="block"})};
 $("closeAdd").onclick=function(){$("addModal").classList.remove("show")};
-$("saveCard").onclick=function(){var n=$("name").value.trim(),p=$("paid").value,v=$("estimate").value;if(!n||p===""||v===""){alert("Enter the card name, price paid, and estimated value.");return}var a=get(),c={id:String(Date.now()),name:n,paid:Number(p),value:Number(v),grade:$("grade").value,photo:photo,sold:false};a.push(c);try{put(a)}catch(e){c.photo="";try{put(a)}catch(e2){alert("Safari blocked local storage.");return}}$("addModal").classList.remove("show");photo="";render();$("toast").classList.add("show");setTimeout(function(){$("toast").classList.remove("show")},2200)};
+$("saveCard").onclick=function(){var n=$("name").value.trim(),p=$("paid").value;if(!n||p===""){alert("Enter the card name and price paid.");return}var a=get(),c={id:String(Date.now()),name:n,paid:Number(p),grade:$("grade").value,photo:photo,sold:false};a.push(c);try{put(a)}catch(e){c.photo="";try{put(a)}catch(e2){alert("Safari blocked local storage.");return}}$("addModal").classList.remove("show");photo="";render();$("toast").classList.add("show");setTimeout(function(){$("toast").classList.remove("show")},2200)};
 $("closeSell").onclick=function(){$("sellModal").classList.remove("show")};$("confirmSell").onclick=function(){if(!selling)return;var p=$("sellPrice").value;if(p==="")return;var a=get(),c=a.find(function(x){return String(x.id)===selling});if(c){c.sold=true;c.sellPrice=Number(p);put(a)}$("sellModal").classList.remove("show");selling=null;render()};
 
 $("backupBtn").onclick=function(){$("backupModal").classList.add("show")};
@@ -633,6 +671,35 @@ $("importFile").onchange=function(){
  r.readAsText(f);
  this.value="";
 };
+
+function dealMoney(n){return "$"+(Number(n)||0).toFixed(2)}
+function dealEsc(s){var d=document.createElement("div");d.textContent=s||"";return d.innerHTML}
+function renderDeals(items){
+ if(!items||!items.length){$("dealResults").innerHTML='<div class="dealEmpty"><b>No qualifying deals found this scan.</b><br>Try again later or loosen the ROI/profit settings.</div>';return}
+ $("dealResults").innerHTML=items.map(function(x){
+  var badge=x.score>=85?'🔥 STEAL':x.score>=72?'GOOD FLIP':x.score>=60?'WATCH':'REVIEW';
+  var img=x.image?'<img src="'+dealEsc(x.image)+'" alt="" style="width:74px;height:98px;object-fit:cover;border-radius:7px;border:1px solid #40515c;float:left;margin:0 11px 9px 0">':'';
+  return '<div class="dealCard" style="overflow:hidden">'+img+'<div class="dealTop"><b>'+dealEsc(x.title)+'</b><span class="score">'+x.score+' '+badge+'</span></div>'+
+   '<span class="dealBadge">'+dealEsc(x.strategy||'LIVE EBAY')+' • '+dealEsc(x.confidence||'')+' comp confidence</span>'+
+   '<div class="dealNums"><div class="dealNum"><strong>'+dealMoney(x.buyTotal)+'</strong><small>Buy + ship</small></div><div class="dealNum"><strong>'+dealMoney(x.marketEstimate)+'</strong><small>Active est.</small></div><div class="dealNum"><strong>'+dealMoney(x.profit)+'</strong><small>Est. profit</small></div><div class="dealNum"><strong>'+Number(x.roi||0).toFixed(0)+'%</strong><small>Est. ROI</small></div></div>'+
+   '<div style="clear:both;color:#94a3ad;font-size:9px;margin-top:8px">'+Number(x.compCount||0)+' comparable active listings • '+dealEsc(x.reason||'')+'</div>'+
+   '<div class="dealLinks"><a target="_blank" rel="noopener" href="'+dealEsc(x.url)+'">VIEW ON EBAY</a></div></div>';
+ }).join('');
+}
+var dealScan=$("dealScan");if(dealScan)dealScan.onclick=async function(){
+ var max=Number($("maxBuy").value||220),minR=Number($("minRoi").value||25),minP=Number($("minProfit").value||15);
+ dealScan.disabled=true;dealScan.textContent="SCANNING LIVE EBAY…";$("dealStatus").textContent="Agent is checking live listings and comparable active inventory…";$("dealResults").innerHTML='<div class="dealEmpty">Scanning… this can take several seconds.</div>';
+ try{
+  var r=await fetch('/api/scan?maxBuy='+encodeURIComponent(max)+'&minRoi='+encodeURIComponent(minR)+'&minProfit='+encodeURIComponent(minP),{headers:{'Accept':'application/json'}});
+  var data=await r.json();if(!r.ok)throw new Error(data.error||'Scan failed');
+  renderDeals(data.deals||[]);
+  $("dealStatus").textContent='Scan complete • '+(data.scanned||0)+' live listings checked • '+(data.deals||[]).length+' qualified • '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+ }catch(e){
+  $("dealResults").innerHTML='<div class="dealEmpty"><b>Scanner is not connected yet.</b><br>'+dealEsc(e.message)+'<br><br>Run CardLocker through the included server and add your eBay API credentials.</div>';
+  $("dealStatus").textContent="Backend connection required.";
+ }finally{dealScan.disabled=false;dealScan.textContent="🔍 SCAN FOR DEALS"}
+};
+
 $("search").oninput=render;render();
 })();
 });</script>
