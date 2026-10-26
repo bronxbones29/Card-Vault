@@ -690,7 +690,8 @@ var dealScan=$("dealScan");if(dealScan)dealScan.onclick=async function(){
  var max=Number($("maxBuy").value||220),minR=Number($("minRoi").value||25),minP=Number($("minProfit").value||15);
  dealScan.disabled=true;dealScan.textContent="SCANNING LIVE EBAY…";$("dealStatus").textContent="Agent is checking live listings and comparable active inventory…";$("dealResults").innerHTML='<div class="dealEmpty">Scanning… this can take several seconds.</div>';
  try{
-  var r=await fetch('/api/scan?maxBuy='+encodeURIComponent(max)+'&minRoi='+encodeURIComponent(minR)+'&minProfit='+encodeURIComponent(minP),{headers:{'Accept':'application/json'}});
+  var SCANNER_URL='https://cardlocker-scanner.bronxbones29.workers.dev';
+  var r=await fetch(SCANNER_URL+'/api/scan?maxBuy='+encodeURIComponent(max)+'&minRoi='+encodeURIComponent(minR)+'&minProfit='+encodeURIComponent(minP),{headers:{'Accept':'application/json'}});
   var data=await r.json();if(!r.ok)throw new Error(data.error||'Scan failed');
   renderDeals(data.deals||[]);
   $("dealStatus").textContent='Scan complete • '+(data.scanned||0)+' live listings checked • '+(data.deals||[]).length+' qualified • '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
