@@ -506,10 +506,10 @@ body{padding-bottom:0!important}
 </div>
 
 <section class="dealFinder" id="dealFinder">
- <div class="dealHero"><div class="dealIcon">⌕</div><div><h2>Deal Scanner</h2><p>One tap hunts eBay for baseball-card flip opportunities using your preset buy, profit and ROI targets.</p></div></div>
- <div style="padding:15px"><button id="dealScan" class="dealSearchBtn" type="button" style="width:100%;min-height:64px;font-size:17px">🔍 SCAN FOR DEALS</button></div>
+ <div class="dealHero"><div class="dealIcon">⌕</div><div><h2>Deal Scanner</h2><p>One tap hunts eBay for MLB + NBA card flip opportunities using your preset buy, profit and ROI targets.</p></div></div>
+ <div style="padding:15px;display:grid;grid-template-columns:1fr auto;gap:8px"><button id="dealScan" class="dealSearchBtn" type="button" style="width:100%;min-height:64px;font-size:17px">🔍 SCAN FOR DEALS</button><button id="clearDeals" type="button" style="min-height:64px;padding:0 16px;border:1px solid #4a5b66;border-radius:9px;background:#14232c;color:#d9e2e8;font-weight:900">CLEAR</button></div>
  <div class="finderSettings"><label>MAX BUY USD<input id="maxBuy" type="number" value="220"></label><label>MIN ROI %<input id="minRoi" type="number" value="25"></label><label>MIN PROFIT $<input id="minProfit" type="number" value="15"></label></div>
- <div id="dealStatus" class="dealStatus">Agent ready • Baseball • live eBay listings • active-market comp estimates.</div>
+ <div id="dealStatus" class="dealStatus">Agent ready • MLB + NBA • live eBay listings • strict active-market matching.</div>
  <div id="dealResults" class="dealResults"><div class="dealEmpty">Tap <b>SCAN FOR DEALS</b>. The agent will fetch live listings, build comparable active-market sets, estimate resale economics, and surface candidates that clear your thresholds.</div></div>
  <div class="dealNote">Market value is an automated estimate from comparable <b>active</b> eBay inventory, not a verified sold-price comp. Treat Deal Score as a screening tool and review the listing before buying.</div>
 </section>
@@ -686,6 +686,7 @@ function renderDeals(items){
    '<div class="dealLinks"><a target="_blank" rel="noopener" href="'+dealEsc(x.url)+'">VIEW ON EBAY</a></div></div>';
  }).join('');
 }
+var clearDeals=$("clearDeals");if(clearDeals)clearDeals.onclick=function(){$("dealResults").innerHTML='<div class="dealEmpty">Results cleared. Tap <b>SCAN FOR DEALS</b> when you want a fresh scan.</div>';$("dealStatus").textContent="Agent ready • MLB + NBA • results cleared.";};
 var dealScan=$("dealScan");if(dealScan)dealScan.onclick=async function(){
  var max=Number($("maxBuy").value||220),minR=Number($("minRoi").value||25),minP=Number($("minProfit").value||15);
  dealScan.disabled=true;dealScan.textContent="SCANNING LIVE EBAY…";$("dealStatus").textContent="Agent is checking live listings and comparable active inventory…";$("dealResults").innerHTML='<div class="dealEmpty">Scanning… this can take several seconds.</div>';
