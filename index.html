@@ -508,9 +508,9 @@ body{padding-bottom:0!important}
 <section class="dealFinder" id="dealFinder">
  <div class="dealHero"><div class="dealIcon">⌕</div><div><h2>Deal Scanner</h2><p>One tap hunts eBay for MLB + NBA card flip opportunities using your preset buy, profit and ROI targets.</p></div></div>
  <div style="padding:15px;display:grid;grid-template-columns:1fr auto;gap:8px"><button id="dealScan" class="dealSearchBtn" type="button" style="width:100%;min-height:64px;font-size:17px">🔍 SCAN FOR DEALS</button><button id="clearDeals" type="button" style="min-height:64px;padding:0 16px;border:1px solid #4a5b66;border-radius:9px;background:#14232c;color:#d9e2e8;font-weight:900">CLEAR</button></div>
- <div class="finderSettings"><label>MAX BUY USD<input id="maxBuy" type="number" value="220"></label><label>MIN ROI %<input id="minRoi" type="number" value="25"></label><label>MIN PROFIT $<input id="minProfit" type="number" value="15"></label></div>
+ <div class="finderSettings"><label>MAX BUY USD<input id="maxBuy" type="number" value="220"></label></div>
  <div id="dealStatus" class="dealStatus">Agent ready • MLB + NBA • live eBay listings • strict active-market matching.</div>
- <div id="dealResults" class="dealResults"><div class="dealEmpty">Tap <b>SCAN FOR DEALS</b>. The agent will fetch live listings, build comparable active-market sets, estimate resale economics, and surface candidates that clear your thresholds.</div></div>
+ <div id="dealResults" class="dealResults"><div class="dealEmpty">Tap <b>SCAN FOR DEALS</b>. Only cards supported by matching confirmed eBay sales can qualify. MLB • NBA • UFC.</div></div>
  <div class="dealNote">Market value is an automated estimate from comparable <b>active</b> eBay inventory, not a verified sold-price comp. Treat Deal Score as a screening tool and review the listing before buying.</div>
 </section>
 <input id="search" class="search" placeholder="Search cards (player, grade...)">
@@ -675,30 +675,30 @@ $("importFile").onchange=function(){
 function dealMoney(n){return "$"+(Number(n)||0).toFixed(2)}
 function dealEsc(s){var d=document.createElement("div");d.textContent=s||"";return d.innerHTML}
 function renderDeals(items){
- if(!items||!items.length){$("dealResults").innerHTML='<div class="dealEmpty"><b>No qualifying deals found this scan.</b><br>Try again later or loosen the ROI/profit settings.</div>';return}
+ if(!items||!items.length){$("dealResults").innerHTML='<div class="dealEmpty"><b>No qualifying deals found this scan.</b><br>No verified bargains met the quality rules. Try again later.</div>';return}
  $("dealResults").innerHTML=items.map(function(x){
-  var badge=x.score>=85?'TOP DEAL':x.score>=72?'GOOD DEAL':'REVIEW'; var scoreClass=x.score>=85?'':x.score>=72?' good':' review'; var simpleProfit=Number(x.profit)||0; var simpleRoi=Number(x.roi)||0; var fbTitle=String(x.title||''); var fbPlayer=String(x.player||'').trim(); if(!fbPlayer){var nm=fbTitle.match(/(?:\b20\d{2}\b\s+)?(?:Topps|Bowman|Panini)?[^A-Za-z]*(?:Chrome|Prizm|Prism|Optic|Select)?\s*([A-Z][A-Za-z.'-]+(?:\s+[A-Z][A-Za-z.'-]+){1,2})/);fbPlayer=nm?nm[1]:'';} var fbSet=(fbTitle.match(/\bTopps Chrome\b/i)||fbTitle.match(/\bBowman Chrome\b/i)||fbTitle.match(/\bPrizm\b/i)||fbTitle.match(/\bPrism\b/i)||fbTitle.match(/\bOptic\b/i)||fbTitle.match(/\bSelect\b/i)||fbTitle.match(/\bTopps\b/i)||fbTitle.match(/\bBowman\b/i)||fbTitle.match(/\bPanini\b/i)||[])[0]||''; var fbGrade=(fbTitle.match(/\bPSA\s*(?:10|9(?:\.5)?|8(?:\.5)?)\b/i)||[])[0]||''; var fbQuery=[fbPlayer,fbSet,fbGrade].filter(Boolean).join(' ').replace(/\s+/g,' ').trim(); if(!fbQuery)fbQuery=fbTitle; var fbUrl='https://www.facebook.com/marketplace/search/?query='+encodeURIComponent(fbQuery);
+  var badge=x.dealRating||'REVIEW'; var scoreClass=badge==='TOP DEAL'?'':badge==='GOOD DEAL'?' good':' review'; var simpleProfit=Number(x.profit)||0; var simpleRoi=Number(x.roi)||0; var fbTitle=String(x.title||''); var fbPlayer=String(x.player||'').trim(); if(!fbPlayer){var nm=fbTitle.match(/(?:\b20\d{2}\b\s+)?(?:Topps|Bowman|Panini)?[^A-Za-z]*(?:Chrome|Prizm|Prism|Optic|Select)?\s*([A-Z][A-Za-z.'-]+(?:\s+[A-Z][A-Za-z.'-]+){1,2})/);fbPlayer=nm?nm[1]:'';} var fbSet=(fbTitle.match(/\bTopps Chrome\b/i)||fbTitle.match(/\bBowman Chrome\b/i)||fbTitle.match(/\bPrizm\b/i)||fbTitle.match(/\bPrism\b/i)||fbTitle.match(/\bOptic\b/i)||fbTitle.match(/\bSelect\b/i)||fbTitle.match(/\bTopps\b/i)||fbTitle.match(/\bBowman\b/i)||fbTitle.match(/\bPanini\b/i)||[])[0]||''; var fbGrade=(fbTitle.match(/\bPSA\s*(?:10|9(?:\.5)?|8(?:\.5)?)\b/i)||[])[0]||''; var fbQuery=[fbPlayer,fbSet,fbGrade].filter(Boolean).join(' ').replace(/\s+/g,' ').trim(); if(!fbQuery)fbQuery=fbTitle; var fbUrl='https://www.facebook.com/marketplace/search/?query='+encodeURIComponent(fbQuery);
   var img=x.image?'<img src="'+dealEsc(x.image)+'" alt="" style="width:74px;height:98px;object-fit:cover;border-radius:7px;border:1px solid #40515c;float:left;margin:0 11px 9px 0">':'';
   return '<div class="dealCard" style="overflow:hidden">'+img+'<div class="dealTop"><b>'+dealEsc(x.title)+'</b><span class="score'+scoreClass+'">'+badge+'</span></div>'+
    '<span class="dealBadge">'+dealEsc(x.sport||'')+(x.trending?' • TRENDING':'')+' • '+dealEsc(x.confidence||'')+' CONFIDENCE</span>'+
-   '<div class="dealNums"><div class="dealNum"><strong>'+dealMoney(x.buyTotal)+'</strong><small>Buy + ship</small></div><div class="dealNum"><strong>'+dealMoney(x.marketEstimate)+'</strong><small>Active est.</small></div><div class="dealNum"><strong>'+dealMoney(simpleProfit)+'</strong><small>Est. profit</small></div><div class="dealNum"><strong>'+simpleRoi.toFixed(0)+'%</strong><small>Est. ROI</small></div></div>'+
-   '<div style="clear:both;color:#94a3ad;font-size:9px;margin-top:8px">'+Number(x.compCount||0)+' comparable active listings • '+dealEsc(x.reason||'')+'</div>'+
+   '<div class="dealNums"><div class="dealNum"><strong>'+dealMoney(x.buyTotal)+'</strong><small>Buy + ship</small></div><div class="dealNum"><strong>'+dealMoney(x.marketEstimate)+'</strong><small>Verified sold value</small></div><div class="dealNum"><strong>'+dealMoney(simpleProfit)+'</strong><small>Est. profit</small></div><div class="dealNum"><strong>'+simpleRoi.toFixed(0)+'%</strong><small>Est. ROI</small></div></div>'+
+   '<div style="clear:both;color:#94a3ad;font-size:9px;margin-top:8px">'+Number(x.compCount||0)+' matching sold comps • '+dealEsc(x.reason||'')+'</div>'+
    '<div class="dealLinks"><a target="_blank" rel="noopener" href="'+dealEsc(x.url)+'">VIEW ON EBAY</a><a target="_blank" rel="noopener" href="'+dealEsc(fbUrl)+'">CHECK FACEBOOK</a></div></div>';
  }).join('');
 }
-var clearDeals=$("clearDeals");if(clearDeals)clearDeals.onclick=function(){$("dealResults").innerHTML='<div class="dealEmpty">Results cleared. Tap <b>SCAN FOR DEALS</b> when you want a fresh scan.</div>';$("dealStatus").textContent="Agent ready • MLB + NBA • results cleared.";};
+var clearDeals=$("clearDeals");if(clearDeals)clearDeals.onclick=function(){$("dealResults").innerHTML='<div class="dealEmpty">Results cleared. Tap <b>SCAN FOR DEALS</b> when you want a fresh scan.</div>';$("dealStatus").textContent="Agent ready • MLB + NBA + UFC • results cleared.";};
 var dealScan=$("dealScan");if(dealScan)dealScan.onclick=async function(){
- var max=Number($("maxBuy").value||220),minR=Number($("minRoi").value||25),minP=Number($("minProfit").value||15);
- dealScan.disabled=true;dealScan.textContent="SCANNING LIVE EBAY…";$("dealStatus").textContent="Agent is checking live listings and comparable active inventory…";$("dealResults").innerHTML='<div class="dealEmpty">Scanning… this can take several seconds.</div>';
+ var max=Number($("maxBuy").value||220);
+ dealScan.disabled=true;dealScan.textContent="SCANNING LIVE EBAY…";$("dealStatus").textContent="Checking MLB, NBA and UFC listings against confirmed sold prices…";$("dealResults").innerHTML='<div class="dealEmpty">Scanning… this can take several seconds.</div>';
  try{
   var SCANNER_URL='https://cardlocker-scanner.bronxbones29.workers.dev';
-  var r=await fetch(SCANNER_URL+'/api/scan?maxBuy='+encodeURIComponent(max)+'&minRoi='+encodeURIComponent(minR)+'&minProfit='+encodeURIComponent(minP),{headers:{'Accept':'application/json'}});
+  var controller=new AbortController();var timer=setTimeout(function(){controller.abort()},55000);var r;try{r=await fetch(SCANNER_URL+'/api/scan?maxBuy='+encodeURIComponent(max),{headers:{'Accept':'application/json'},signal:controller.signal});}finally{clearTimeout(timer)}
   var data=await r.json();if(!r.ok)throw new Error(data.error||'Scan failed');
   renderDeals(data.deals||[]);
-  $("dealStatus").textContent='Scan complete • '+(data.scanned||0)+' live listings checked • '+(data.deals||[]).length+' qualified • '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
+  $("dealStatus").textContent='Scan complete • '+(data.scanned||0)+' live listings checked • '+(data.verifiedSearches||0)+' sold searches • '+(data.deals||[]).length+' qualified • '+new Date().toLocaleTimeString([], {hour:'numeric',minute:'2-digit'});
  }catch(e){
-  $("dealResults").innerHTML='<div class="dealEmpty"><b>Scanner is not connected yet.</b><br>'+dealEsc(e.message)+'<br><br>Run CardLocker through the included server and add your eBay API credentials.</div>';
-  $("dealStatus").textContent="Backend connection required.";
+  $("dealResults").innerHTML='<div class="dealEmpty"><b>Scan could not finish.</b><br>'+dealEsc(e.name==='AbortError'?'Scan timed out. Please try again.':e.message)+'</div>';
+  $("dealStatus").textContent="Scan failed • try again.";
  }finally{dealScan.disabled=false;dealScan.textContent="🔍 SCAN FOR DEALS"}
 };
 
